@@ -192,3 +192,40 @@ document.addEventListener("keydown", (e) => {
 document.getElementById("retryBtn").addEventListener("click", () => {
   location.reload();
 });
+
+// =======================
+// 이메일 복사 버튼 기능
+// =======================
+const copyBtn = document.getElementById("copyEmailBtn");
+const copyMsg = document.getElementById("copyEmailMsg");
+const contactEmailEl = document.getElementById("contactEmail");
+
+if (copyBtn && copyMsg && contactEmailEl) {
+  const contactEmail = contactEmailEl.textContent.trim();
+
+  copyBtn.addEventListener("click", async () => {
+    try {
+      if (navigator.clipboard && navigator.clipboard.writeText) {
+        await navigator.clipboard.writeText(contactEmail);
+      } else {
+        // 지원 안 되는 브라우저용 폴백
+        const tempInput = document.createElement("input");
+        tempInput.value = contactEmail;
+        document.body.appendChild(tempInput);
+        tempInput.select();
+        document.execCommand("copy");
+        document.body.removeChild(tempInput);
+      }
+
+      copyMsg.textContent = "복사 완료!";
+      setTimeout(() => {
+        copyMsg.textContent = "";
+      }, 1500);
+    } catch (err) {
+      copyMsg.textContent = "복사 실패 😢";
+      setTimeout(() => {
+        copyMsg.textContent = "";
+      }, 1500);
+    }
+  });
+}
