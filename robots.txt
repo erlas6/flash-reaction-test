@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://erlas6.github.io/flash-reaction-test/sitemap.xml

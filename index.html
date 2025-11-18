@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+  <meta charset="UTF-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <title>Flash Reaction Tester | 반응 속도 테스트</title>
+
+  <!-- 기본 SEO -->
+  <meta name="description" content="네 방향 중 랜덤으로 켜지는 노란색 영역에 마우스를 두고 F 키를 눌러 반응 속도를 ms 단위로 측정하는 Flash Reaction Tester입니다." />
+  <meta name="keywords" content="반응속도, 반응 속도 테스트, reaction time test, 플래시 반응, 게임, 집중력" />
+
+  <!-- Open Graph -->
+  <meta property="og:title" content="Flash Reaction Tester | 반응 속도 테스트" />
+  <meta property="og:description" content="노란색 칸에 마우스를 올리고 F 키를 눌러 당신의 반응 속도를 측정해 보세요." />
+  <meta property="og:type" content="website" />
+  <meta property="og:url" content="https://erlas6.github.io/flash-reaction-test/" />
+  <link rel="canonical" href="https://erlas6.github.io/flash-reaction-test/" />
+
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <h1>Flash Reaction Tester</h1>
+
+  <div id="instructions">
+    <p>노란색 칸에 마우스 포인터를 이동시키고 F를 누르면 측정됩니다.</p>
+    <p>중간의 점을 클릭하여 테스트를 계속 진행하세요.</p>
+  </div>
+
+  <div id="gameArea">
+    <div id="north" class="cell"></div>
+    <div id="east" class="cell"></div>
+    <div id="south" class="cell"></div>
+    <div id="west" class="cell"></div>
+    <button id="centerButton"></button>
+  </div>
+
+  <div id="controls">
+    <span>시도 횟수:</span>
+    <label><input type="radio" name="trials" value="1" />1</label>
+    <label><input type="radio" name="trials" value="3" />3</label>
+    <label><input type="radio" name="trials" value="5" checked />5</label>
+    <label><input type="radio" name="trials" value="7" />7</label>
+    <button id="startBtn">시작</button>
+  </div>
+
+  <div id="info">
+    <p>남은 시도: <span id="remaining">0</span></p>
+    <p>마지막 반응 시간: <span id="reactionTime">0</span> ms</p>
+    <p>평균 반응 시간: <span id="averageTime">0</span> ms</p>
+  </div>
+
+  <!-- 결과 화면 -->
+  <div id="resultScreen">
+    <h1>평균 반응 시간: <span id="bigAvgTime">0</span> ms</h1>
+    <ul id="timesList"></ul>
+    <canvas id="chart" width="400" height="200"></canvas>
+    <button id="retryBtn">다시하기</button>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>
