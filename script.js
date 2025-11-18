@@ -1,6 +1,7 @@
 let trials = 0;
 let startTime = 0;
 let targetCell = null;
+let timeoutId = null;  // ⭐ 노란불 타이머 저장용
 
 const records = [];
 const lastMousePos = { x: 0, y: 0 };
@@ -51,7 +52,6 @@ function showResults() {
   const list = document.getElementById("timesList");
   records.forEach((rt, i) => {
     const li = document.createElement("li");
-    // 🔧 여기 원래 문자열이 깨져 있었음 → 템플릿 리터럴로 수정
     li.textContent = `시도 ${i + 1}: ${rt.toFixed(2)} ms`;
     list.appendChild(li);
   });
@@ -100,7 +100,13 @@ function nextRound() {
   hideCenterButton();
   targetCell = cells[randomDirection()];
 
-  setTimeout(() => {
+  // 혹시 이전 라운드에서 남아 있던 타이머가 있으면 정리
+  if (timeoutId) {
+    clearTimeout(timeoutId);
+    timeoutId = null;
+  }
+
+  timeoutId = setTimeout(() => {
     targetCell.style.backgroundColor = "yellow";
     startTime = performance.now();
   }, randomDelay());
@@ -140,7 +146,6 @@ function showFunResult(avg) {
   `;
 }
 
-
 document.getElementById("startBtn").addEventListener("click", () => {
   records.length = 0;
   trials = parseInt(
@@ -162,31 +167,51 @@ document.getElementById("centerButton").addEventListener("click", () => {
 });
 
 document.addEventListener("keydown", (e) => {
-  if (!targetCell || !startTime) return;
-
   const key = e.key.toLowerCase();
-  if (key === "f" || key === "ㄹ") {
-    const elem = document.elementFromPoint(lastMousePos.x, lastMousePos.y);
 
-    if (elem !== targetCell) {
-      alert("올바른 방향에 마우스를 위치시킨 후 F키를 눌러주세요.");
-      return;
-    }
-
-    const rt = performance.now() - startTime;
-    records.push(rt);
-
-    document.getElementById("reactionTime").textContent = rt.toFixed(2);
-    document.getElementById("remaining").textContent =
-      trials - records.length;
-    document.getElementById("averageTime").textContent = (
-      records.reduce((a, b) => a + b, 0) / records.length
-    ).toFixed(2);
-
-    startTime = 0;
-    targetCell.style.backgroundColor = "white";
-    showCenterButton();
+  // F/ㄹ 외의 키는 무시
+  if (key !== "f" && key !== "ㄹ") {
+    return;
   }
+
+  // 노란불(타겟)이 켜지기 전에 누름
+  if (!startTime) {
+    alert("아직 시작되지 않았습니다! 노란색 칸이 켜진 후 눌러주세요.");
+
+    // 진행 중이던 라운드 완전히 취소하고 다시 중앙 점부터 시작
+    if (timeoutId) {
+      clearTimeout(timeoutId);
+      timeoutId = null;
+    }
+    resetColors();
+    targetCell = null;
+    startTime = 0;
+    showCenterButton();
+
+    return;
+  }
+
+  // 아래부터는 정상 입력 처리
+  const elem = document.elementFromPoint(lastMousePos.x, lastMousePos.y);
+
+  if (elem !== targetCell) {
+    alert("올바른 방향에 마우스를 위치시킨 후 F키를 눌러주세요.");
+    return;
+  }
+
+  const rt = performance.now() - startTime;
+  records.push(rt);
+
+  document.getElementById("reactionTime").textContent = rt.toFixed(2);
+  document.getElementById("remaining").textContent =
+    trials - records.length;
+  document.getElementById("averageTime").textContent = (
+    records.reduce((a, b) => a + b, 0) / records.length
+  ).toFixed(2);
+
+  startTime = 0;
+  targetCell.style.backgroundColor = "white";
+  showCenterButton();
 });
 
 document.getElementById("retryBtn").addEventListener("click", () => {
