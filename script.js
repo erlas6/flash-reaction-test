@@ -46,6 +46,8 @@ function showResults() {
     records.reduce((a, b) => a + b, 0) / (records.length || 1);
   document.getElementById("bigAvgTime").textContent = avg.toFixed(2);
 
+  showFunResult(avg);
+
   const list = document.getElementById("timesList");
   records.forEach((rt, i) => {
     const li = document.createElement("li");
@@ -103,6 +105,41 @@ function nextRound() {
     startTime = performance.now();
   }, randomDelay());
 }
+
+function getReactionResult(avg) {
+  const levels = [
+    { max: 200, title: "⚡ 초인적인 반응속도", stars: 5, desc: "프로게이머 뺨치는 속도. 화면 뜨기 전에 이미 눌렀다." },
+    { max: 230, title: "🔥 신들린 손가락", stars: 4.5, desc: "상대가 스킬 누르기 전에 네가 먼저 피한다." },
+    { max: 260, title: "⭐ 반응의 귀재", stars: 4.5, desc: "평타도 플로 피함." },
+    { max: 290, title: "🐉 고대 드래곤의 반사신경", stars: 4, desc: "말파이트 궁 안 보고도 피함." },
+    { max: 320, title: "🦊 아리 매혹 99% 회피러", stars: 4, desc: "쓰레쉬 그랩 무시함." },
+    { max: 350, title: "👨 일반 상위 게이머", stars: 3, desc: "인간 평균치 이상, 피지컬 상위권." },
+    { max: 380, title: "🐧 펭귄 반응속도", stars: 2.5, desc: "몸은 느린데 머리는 빠름. 예측으로 극복 가능!" },
+    { max: 410, title: "🐢 거북이 반응속도", stars: 2, desc: "애쉬 궁 정도는 피함~" },
+    { max: 440, title: "⛓ CC기 걸린 속도", stars: 1.5, desc: "핑은 20인데 손이 200핑." },
+    { max: Infinity, title: "🖱 마우스 끊김", stars: 1, desc: "상남자는 맞으면서 싸운다." }
+  ];
+
+  return levels.find(level => avg <= level.max);
+}
+
+function showFunResult(avg) {
+  const r = getReactionResult(avg);
+  const star = "★".repeat(Math.floor(r.stars)) + (r.stars % 1 ? "☆" : "");
+
+  document.getElementById("funResult").innerHTML = `
+    <div style="margin-top:15px; font-size:24px; font-weight:700;">
+      ${r.title}
+    </div>
+    <div style="font-size:28px; color:#ffd86b; margin:5px 0;">
+      ${star}
+    </div>
+    <div style="font-size:18px; opacity:0.9;">
+      ${r.desc}
+    </div>
+  `;
+}
+
 
 document.getElementById("startBtn").addEventListener("click", () => {
   records.length = 0;
