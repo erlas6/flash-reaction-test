@@ -168,3 +168,45 @@ h1 {
   padding: 10px 20px;
   cursor: pointer;
 }
+
+/* 하단 연락 바 */
+#contactBar {
+  position: fixed;
+  bottom: 8px;
+  right: 8px;
+  transform: none;      /* 중앙 정렬 제거 */
+  font-size: 12px;
+  color: #444;
+  background: rgba(255, 255, 255, 0.9);
+  padding: 4px 10px;
+  border-radius: 999px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  z-index: 50;
+}
+
+
+#contactEmail {
+  font-family: monospace;
+}
+
+#copyEmailBtn {
+  border: none;
+  background: #00804b;
+  color: #fff;
+  font-size: 11px;
+  padding: 3px 8px;
+  border-radius: 999px;
+  cursor: pointer;
+}
+
+#copyEmailBtn:hover {
+  background: #00653a;
+}
+
+#copyEmailMsg {
+  font-size: 11px;
+  color: #00804b;
+}
