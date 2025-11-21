@@ -11,6 +11,44 @@ h1 {
   margin-top: 20px;
 }
 
+
+/* 상단 바 */
+#topBar {
+  width: 100%;
+  max-width: 1200px; /* 더 넓게 */
+  display: flex;
+  justify-content: center; /* 제목 중앙 정렬 */
+  align-items: center;
+  position: relative; /* 오른쪽 언어선택 고정을 위한 기준점 */
+  margin-top: 20px;
+}
+
+/* 제목 중앙 고정 */
+#topBar h1 {
+  margin: 0 auto;
+  font-size: 2rem;
+  font-weight: 700;
+  text-align: center;
+}
+
+/* 언어 선택을 오른쪽 끝에 고정 */
+#langSwitcher {
+  position: absolute;
+  right: 10px;
+  top: 50%;
+  transform: translateY(-50%);
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 0.9rem;
+}
+
+#langSelect {
+  padding: 2px 6px;
+  font-size: 0.9rem;
+}
+
+
 /* 게임 영역 */
 #gameArea {
   position: relative;
@@ -186,7 +224,6 @@ h1 {
   gap: 6px;
   z-index: 50;
 }
-
 
 #contactEmail {
   font-family: monospace;
