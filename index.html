@@ -1,24 +1,23 @@
 <!DOCTYPE html>
-<html lang="ko">
+<html lang="en">
 <head>
   <meta charset="UTF-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
 
-
   <!-- ★ 구글 애드센스 스크립트 추가 -->
   <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4874823891556480"
-     crossorigin="anonymous"></script>
+    crossorigin="anonymous"></script>
 
-  <title>Flash Reaction Test | 반응 속도 테스트</title>
+  <title>Flash Reaction Test | Reaction Speed Test</title>
 
   <!-- 기본 SEO -->
-  <meta name="description" content="네 방향 중 랜덤으로 켜지는 노란색 영역에 마우스를 두고 F 키를 눌러 반응 속도를 ms 단위로 측정하는 Flash Reaction Test입니다." />
-  <meta name="keywords" content="반응속도, 반응 속도 테스트, reaction time test, 플래시 반응, 게임, 집중력" />
+  <meta name="description" content="Move your mouse to the yellow area and press F to measure your reaction time in milliseconds." />
+  <meta name="keywords" content="reaction speed, reaction time test, flash reaction, game, focus" />
 
   <!-- Open Graph -->
-  <meta property="og:title" content="Flash Reaction Test | 반응 속도 테스트" />
-  <meta property="og:description" content="노란색 칸에 마우스를 올리고 F 키를 눌러 당신의 반응 속도를 측정해 보세요." />
+  <meta property="og:title" content="Flash Reaction Test | Reaction Speed Test" />
+  <meta property="og:description" content="Move your mouse to the yellow area and press F to measure your reaction speed." />
   <meta property="og:type" content="website" />
   <meta property="og:url" content="https://erlas6.github.io/flash-reaction-test/" />
   <link rel="canonical" href="https://erlas6.github.io/flash-reaction-test/" />
@@ -26,11 +25,25 @@
   <link rel="stylesheet" href="style.css" />
 </head>
 <body>
-  <h1>Flash Reaction Test</h1>
+  <!-- 상단 제목 + 언어 선택 -->
+  <div id="topBar">
+    <h1 data-i18n="title">Flash Reaction Test</h1>
+    <div id="langSwitcher">
+      <label for="langSelect" data-i18n="languageLabel">Language</label>
+      <select id="langSelect">
+        <option value="en" selected>English</option>
+        <option value="ko">한국어</option>
+      </select>
+    </div>
+  </div>
 
   <div id="instructions">
-    <p>노란색 칸에 마우스 포인터를 이동시키고 F를 누르면 측정됩니다.</p>
-    <p>중간의 점을 클릭하여 테스트를 계속 진행하세요.</p>
+    <p data-i18n="instruction1">
+      Move your mouse pointer to the yellow area and press F to measure your reaction time.
+    </p>
+    <p data-i18n="instruction2">
+      Click the center dot to continue to the next trial.
+    </p>
   </div>
 
   <div id="gameArea">
@@ -42,33 +55,46 @@
   </div>
 
   <div id="controls">
-    <span>시도 횟수:</span>
+    <span data-i18n="trialsLabel">Trials:</span>
     <label><input type="radio" name="trials" value="1" />1</label>
     <label><input type="radio" name="trials" value="3" />3</label>
     <label><input type="radio" name="trials" value="5" checked />5</label>
     <label><input type="radio" name="trials" value="7" />7</label>
-    <button id="startBtn">시작</button>
+    <button id="startBtn" data-i18n="startButton">Start</button>
   </div>
 
   <div id="info">
-    <p>남은 시도: <span id="remaining">0</span></p>
-    <p>마지막 반응 시간: <span id="reactionTime">0</span> ms</p>
-    <p>평균 반응 시간: <span id="averageTime">0</span> ms</p>
+    <p>
+      <span data-i18n="remainingLabel">Remaining trials:</span>
+      <span id="remaining">0</span>
+    </p>
+    <p>
+      <span data-i18n="lastTimeLabel">Last reaction time:</span>
+      <span id="reactionTime">0</span> ms
+    </p>
+    <p>
+      <span data-i18n="avgTimeLabel">Average reaction time:</span>
+      <span id="averageTime">0</span> ms
+    </p>
   </div>
 
   <!-- 결과 화면 -->
   <div id="resultScreen">
-    <h1>평균 반응 시간: <span id="bigAvgTime">0</span> ms</h1>
+    <h1>
+      <span data-i18n="resultAvgLabel">Average reaction time:</span>
+      <span id="bigAvgTime">0</span> ms
+    </h1>
     <div id="funResult"></div>
     <ul id="timesList"></ul>
     <canvas id="chart" width="400" height="200"></canvas>
-    <button id="retryBtn">다시하기</button>
+    <button id="retryBtn" data-i18n="retryButton">Retry</button>
   </div>
 
-    <!-- 연락처 표시 바 -->
+  <!-- 연락처 표시 바 -->
   <div id="contactBar">
-    문의: <span id="contactEmail">erlassgame@gmail.com</span>
-    <button id="copyEmailBtn">복사</button>
+    <span data-i18n="contactLabel">Contact:</span>
+    <span id="contactEmail">erlassgame@gmail.com</span>
+    <button id="copyEmailBtn" data-i18n="copyEmail">Copy</button>
     <span id="copyEmailMsg"></span>
   </div>
 
